@@ -5,6 +5,9 @@ target
 Cargo.lock
 .DS_Store
 scripts/__pycache__/*
+.env
+whaletrucker-integration/dist
+whaletrucker-integration/deployed-addresses.json
 
 .github/instructions/kluster-code-verify.instructions.md
 .kluster

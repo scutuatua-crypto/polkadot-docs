@@ -1,0 +1,34 @@
+{
+  "name": "whaletrucker-integration",
+  "version": "1.0.0",
+  "description": "WhaleTrucker Ecosystem integration with Polkadot Hub smart contracts.",
+  "main": "dist/yields-tracker-integration.js",
+  "types": "dist/yields-tracker-integration.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "deploy:testnet": "ts-node deployment-script.ts --network testnet",
+    "deploy:mainnet": "ts-node deployment-script.ts --network mainnet",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "polkadot",
+    "whaletrucker",
+    "smart-contracts",
+    "ethers",
+    "yields-tracker"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "solc": "^0.8.28",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
