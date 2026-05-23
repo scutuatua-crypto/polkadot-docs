@@ -4,12 +4,16 @@ on:
   pull_request:
 
 jobs:
-  check-docs-links:
-    uses: papermoonio/workflows/.github/workflows/core-pr-link-checker.yml@main
-    with:
-      mkdocs_repo: papermoonio/polkadot-mkdocs
-      docs_repo: polkadot-developers/polkadot-docs
-      docs_checkout: polkadot-docs
-      url: https://docs.polkadot.com
-    secrets:
-      GH_TOKEN: ${{ secrets.GH_PR_404_CHECKER }}
+  linkChecker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1
+        with:
+          # สแกนทุกไฟล์ .md ใน Repo
+          args: '--verbose --no-progress "./**/*.md"'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
