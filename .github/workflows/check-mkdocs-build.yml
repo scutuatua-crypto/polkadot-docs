@@ -1,15 +1,26 @@
-name: PR Docs Build
+name: Build Docs
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
-
-permissions:
-  contents: read
+    branches: [ main ]
 
 jobs:
-  build-docs:
-    uses: papermoonio/workflows/.github/workflows/core-pr-mkdocs-build.yml@main
-    with:
-      mkdocs_repo: papermoonio/polkadot-mkdocs
-      docs_repo: polkadot-developers/polkadot-docs
-      docs_checkout: polkadot-docs
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          pip install mkdocs mkdocs-material
+          
+      - name: Build Docs
+        run: mkdocs build
