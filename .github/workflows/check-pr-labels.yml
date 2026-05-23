@@ -5,7 +5,20 @@ on:
     types: [opened, synchronize, reopened, labeled, unlabeled]
 
 jobs:
-  check-docs-links:
-    uses: papermoonio/workflows/.github/workflows/pr-blocked-label.yml@main
-    with: 
-      whitelist_labels: "B1 - Ready to Merge"
+  check-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for required label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const requiredLabel = "B1 - Ready to Merge";
+            const labels = context.payload.pull_request.labels.map(l => l.name);
+            
+            if (!labels.includes(requiredLabel)) {
+              console.log(`Missing required label: ${requiredLabel}`);
+              // ถ้าไม่มี label ให้ workflow fail (แดง)
+              core.setFailed(`PR is missing the required label: ${requiredLabel}`);
+            } else {
+              console.log(`Found required label: ${requiredLabel}`);
+            }
